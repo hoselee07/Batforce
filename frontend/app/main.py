@@ -52,11 +52,6 @@ def fetch_date_from_backend():
 
 
 # Function1
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
-    
     @app.route('/internal', methods=['GET', 'POST'])
 def internal():
     """
@@ -82,3 +77,8 @@ def internal():
 
     # This will render the same internal.html page with the form and result
     return render_template('internal.html', form=form, total_waste_result=total_waste_result, error_message=error_message)
+
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
