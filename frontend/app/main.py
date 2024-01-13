@@ -52,7 +52,7 @@ def fetch_date_from_backend():
 
 
 # Function1
-    @app.route('/internal', methods=['GET', 'POST'])
+@app.route('/internal', methods=['GET', 'POST'])
 def internal():
     """
     Render the internal page for querying total waste and display results.
