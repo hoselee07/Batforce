@@ -56,3 +56,29 @@ def fetch_date_from_backend():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
+    
+    @app.route('/internal', methods=['GET', 'POST'])
+def internal():
+    """
+    Render the internal page for querying total waste and display results.
+    """
+    form = WasteQueryForm()
+    total_waste_result = None
+    error_message = None
+
+    if form.validate_on_submit():
+        comune = form.comune.data
+        year = form.year.data
+
+        # Make a GET request to the FastAPI backend
+        fastapi_url = f'{FASTAPI_BACKEND_HOST}/total_waste/{comune}/{year}'
+        response = requests.get(fastapi_url)
+            
+        if response.status_code == 200:
+            data = response.json()
+            total_waste_result = data.get('total_waste', 'No data available')
+        else:
+            error_message = f'Error: Unable to fetch total waste data for {comune} in {year}'
+
+    # This will render the same internal.html page with the form and result
+    return render_template('internal.html', form=form, total_waste_result=total_waste_result, error_message=error_message)
