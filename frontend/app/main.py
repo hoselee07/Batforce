@@ -51,33 +51,7 @@ def fetch_date_from_backend():
         return 'Date not available'
 
 
-@app.route('/internal', methods=['GET', 'POST'])
-def internal():
-    """
-    Render the internal page.
-
-    Returns:
-        str: Rendered HTML content for the index page.
-    """
-    form = QueryForm()
-    error_message = None  # Initialize error message
-
-    if form.validate_on_submit():
-        person_name = form.person_name.data
-
-        # Make a GET request to the FastAPI backend
-        fastapi_url = f'{FASTAPI_BACKEND_HOST}/query/{person_name}'
-        response = requests.get(fastapi_url)
-
-        if response.status_code == 200:
-            # Extract and display the result from the FastAPI backend
-            data = response.json()
-            result = data.get('birthday', f'Error: Birthday not available for {person_name}')
-            return render_template('internal.html', form=form, result=result, error_message=error_message)
-        else:
-            error_message = f'Error: Unable to fetch birthday for {person_name} from FastAPI Backend'
-
-    return render_template('internal.html', form=form, result=None, error_message=error_message)
+# Function1
 
 
 if __name__ == '__main__':
