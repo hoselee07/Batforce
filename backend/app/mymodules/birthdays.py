@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv('/app/app/filedati.csv', delimiter=';')
+data = pd.read_csv('app/filedati.csv', delimiter=';')
 
 # Function1 - total_waste
 # This function takes three parameters:
@@ -19,7 +19,7 @@ def total_waste(comune, year, data):
     """
     
     # Load the CSV file with the correct delimiter
-    data = pd.read_csv('/app/app/filedati.csv', delimiter=';')
+    data = pd.read_csv('app/filedati.csv', delimiter=';')
 
     # Filter data for the given comune and year
     filtered_data = data[(data['Comune'] == comune) & (data['Anno'] == year)]
