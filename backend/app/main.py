@@ -16,15 +16,6 @@ from .mymodules.birthdays import total_waste
 
 app = FastAPI()
 
-# Dictionary of birthdays
-birthdays_dictionary = {
-    'Albert Einstein': '03/14/1879',
-    'Benjamin Franklin': '01/17/1706',
-    'Ada Lovelace': '12/10/1815',
-    'Donald Trump': '06/14/1946',
-    'Rowan Atkinson': '01/6/1955'
-}
-
 df = pd.read_csv('app/filedati.csv')
 
 @app.get('/')
@@ -62,6 +53,6 @@ def get_total_waste(comune: str, year: int):
         dict: Total waste in Kg or a message if not found
     """
     # Assuming the CSV file path is fixed, you can hardcode or configure it here
-    csv_file_path = '/app/app/filedati.csv'
+    csv_file_path = 'app/filedati.csv'
     waste = total_waste(comune, year, csv_file_path)
     return {"comune": comune, "year": year, "total_waste": waste}
