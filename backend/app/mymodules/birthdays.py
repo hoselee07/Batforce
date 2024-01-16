@@ -10,12 +10,15 @@ data = pd.read_csv('app/filedati.csv', delimiter=';')
 
 def total_waste(comune, year, data):
     """
-    Function to retrieve the total waste for a given comune and year.
+    Retrieve the total waste for a given comune and year from a CSV file.
 
-    :param comune: Name of the Comune
-    :param year: Year of interest
-    :param file_path: Path to the CSV file
-    :return: Total waste in Kg or a message if not found
+    Args:
+        comune (str): Name of the Comune.
+        year (int): Year of interest.
+        file_path (str): Path to the CSV file containing waste data.
+
+    Returns:
+        str: Total waste in Kg or a message if no data is found.
     """
     
     # Load the CSV file with the correct delimiter
