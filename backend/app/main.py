@@ -45,14 +45,23 @@ def get_total_waste(comune: str, year: int):
     """
     Endpoint to retrieve total waste for a given comune and year.
 
+    This function receives the name of a Comune and a year, then returns the total
+    waste generated in that Comune for the specified year. The data is retrieved
+    from a CSV file.
+
     Args:
-        comune (str): Name of the Comune
-        year (int): Year of interest
+        comune (str): Name of the Comune.
+        year (int): Year of interest.
 
     Returns:
-        dict: Total waste in Kg or a message if not found
+        dict: Total waste in Kg or a message if not found.
     """
-    # Assuming the CSV file path is fixed, you can hardcode or configure it here
+
+    # Path to the CSV file containing waste data
     csv_file_path = 'app/filedati.csv'
+    
+    # Retrieve waste data for the given comune and year
     waste = total_waste(comune, year, csv_file_path)
+    
+    # Return the waste data in a dictionary format
     return {"comune": comune, "year": year, "total_waste": waste}
