@@ -51,33 +51,38 @@ def fetch_date_from_backend():
         return 'Date not available'
 
 
+# Function1
 @app.route('/internal', methods=['GET', 'POST'])
 def internal():
     """
-    Render the internal page.
-
-    Returns:
-        str: Rendered HTML content for the index page.
+    Handle GET and POST requests to render the internal page. 
+    This function processes a form for querying total waste for a given comune and year, 
+    makes a request to a FastAPI backend, and displays the result.
     """
-    form = QueryForm()
-    error_message = None  # Initialize error message
+    
+    form = WasteQueryForm()
+    total_waste_result = None
+    error_message = None
 
     if form.validate_on_submit():
-        person_name = form.person_name.data
+        comune = form.comune.data
+        year = form.year.data
 
         # Make a GET request to the FastAPI backend
-        fastapi_url = f'{FASTAPI_BACKEND_HOST}/query/{person_name}'
+        fastapi_url = f'{FASTAPI_BACKEND_HOST}/total_waste/{comune}/{year}'
         response = requests.get(fastapi_url)
-
+            
         if response.status_code == 200:
-            # Extract and display the result from the FastAPI backend
             data = response.json()
-            result = data.get('birthday', f'Error: Birthday not available for {person_name}')
-            return render_template('internal.html', form=form, result=result, error_message=error_message)
+            total_waste_result = data.get('total_waste', 'No data available')
         else:
-            error_message = f'Error: Unable to fetch birthday for {person_name} from FastAPI Backend'
+            error_message = f'Error: Unable to fetch total waste data for
+            {comune} in {year}'
 
-    return render_template('internal.html', form=form, result=None, error_message=error_message)
+    # This will render the same internal.html page with the form and result
+    return render_template('internal.html', form=form,
+    total_waste_result=total_waste_result, error_message=error_message)
+
 
 
 if __name__ == '__main__':
