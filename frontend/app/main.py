@@ -55,8 +55,11 @@ def fetch_date_from_backend():
 @app.route('/internal', methods=['GET', 'POST'])
 def internal():
     """
-    Render the internal page for querying total waste and display results.
+    Handle GET and POST requests to render the internal page. 
+    This function processes a form for querying total waste for a given comune and year, 
+    makes a request to a FastAPI backend, and displays the result.
     """
+    
     form = WasteQueryForm()
     total_waste_result = None
     error_message = None
@@ -73,10 +76,12 @@ def internal():
             data = response.json()
             total_waste_result = data.get('total_waste', 'No data available')
         else:
-            error_message = f'Error: Unable to fetch total waste data for {comune} in {year}'
+            error_message = f'Error: Unable to fetch total waste data for
+            {comune} in {year}'
 
     # This will render the same internal.html page with the form and result
-    return render_template('internal.html', form=form, total_waste_result=total_waste_result, error_message=error_message)
+    return render_template('internal.html', form=form,
+    total_waste_result=total_waste_result, error_message=error_message)
 
 
 
