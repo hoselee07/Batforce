@@ -15,35 +15,34 @@ pytest --cov=app --cov-report=html tests/
 
 client = TestClient(app)
 
-
+# Test for the main endpoint
 def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"Hello": "World"}
 
-
-def test_success_read_item():
-    response = client.get("/query/Albert Einstein")
+# Test for the root endpoint
+def test_root_endpoint():
+    response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"person_name": 'Albert Einstein', 
-                               "birthday": '03/14/1879'}
 
-
-""" def test_fail_read_item():
-    response = client.get("/query/Pippo")
+# Test for the total waste for a specific comune and year
+def test_total_waste():
+    response = client.get("/total_waste/Comune1/2020")
     assert response.status_code == 200
-    assert response.json() == {"error": "Person not found"} """
 
-
-# The following will generate an error in pycheck
-""" def test_success_read_item_module():
-    response = client.get("/module/search/Albert Einstein")
+# Test for total waste across all years for a specific comune
+def test_total_waste_all_years():
+    response = client.get("/total_waste_all_years/Comune1")
     assert response.status_code == 200
-    assert response.json() == {"Albert Einstein's birthday is 03/14/1879."} """
 
-
-# The following is correct, can you spot the diffence?
-def test_success_read_item_module():
-    response = client.get("/module/search/Albert Einstein")
+# Test for finding municipalities by waste for a specific year
+def test_find_municipalities_by_waste():
+    year = 2000  # Use an appropriate year value that exists in your 'filedati.csv'
+    response = client.get(f"/find_municipalities_by_waste/{year}")
     assert response.status_code == 200
-    assert response.json() == ["Albert Einstein's birthday is 03/14/1879."]
+
+# Test for handling invalid input
+def test_invalid_input():
+    response = client.get("/total_waste/InvalidComune/2020")
+    assert response.status_code == 200
