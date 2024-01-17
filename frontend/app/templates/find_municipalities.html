@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Find Municipalities by Waste {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Find Municipalities by Waste Per Capita</h1>
+        
+        <form method="POST" action="{{ url_for('find_municipalities_by_waste') }}">
+            {{ form.csrf_token }}
+            <div class="form-group">
+                {{ form.year.label }}
+                {{ form.year(class="form-control", placeholder="Enter Year") }}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+
+        <!-- Display the result for municipalities -->
+        {% if result %}
+            <div class="mt-3">
+                <h3>Results for Year: {{ result["Year"] }}</h3>
+                <p>Highest Waste Per Capita: {{ result["Highest Waste Per Capita"] }}</p>
+                <p>Lowest Waste Per Capita: {{ result["Lowest Waste Per Capita"] }}</p>
+            </div>
+        {% elif error_message %}
+            <p class="text-danger">{{ error_message }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

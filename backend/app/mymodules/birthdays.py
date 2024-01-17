@@ -53,3 +53,38 @@ def total_waste_all_years(comune, data):
         return "No data found for the specified Comune."
 
     return filtered_data.set_index('Anno')['Rifiuto totale (in Kg)'].to_dict()
+
+
+def find_municipalities_by_waste(data, year):
+    """
+    Finds the municipalities with the highest and lowest waste per capita for a given year.
+
+    Parameters:
+    - data: DataFrame containing the waste data.
+    - year: The year for which to find the data.
+
+    Returns:
+    - A tuple containing the municipalities with the highest and lowest waste per capita.
+    """
+    data = pd.read_csv('app/filedati.csv', delimiter=';')
+    # Filter the data for the given year
+    year_data = data[data['Anno'] == year]
+
+    # Prepare 'Rifiuto totale pro capite (in Kg)' for conversion to float
+    year_data['Rifiuto totale pro capite (in Kg)'] = (
+        year_data['Rifiuto totale pro capite (in Kg)']
+        .str.replace('.', '')
+        .str.replace(',', '.')
+        .astype(float)
+    )
+
+    # Find the municipality with the highest waste per capita
+    highest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] == year_data['Rifiuto totale pro capite (in Kg)'].max()]
+
+    # Find the municipality with the lowest waste per capita
+    lowest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] == year_data['Rifiuto totale pro capite (in Kg)'].min()]
+
+    return (
+        highest_waste['Comune'].iloc[0], highest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0],
+        lowest_waste['Comune'].iloc[0], lowest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0]
+    )
