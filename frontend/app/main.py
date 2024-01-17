@@ -87,3 +87,26 @@ def internal():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
+
+
+# Function 2
+@app.route('/total_waste_all_years', methods=['GET', 'POST'])
+def total_waste_all_years_query():
+    form = WasteQueryForm()  
+    total_waste_data = None
+    error_message = None
+
+    if form.validate_on_submit():
+        comune = form.comune.data
+
+        # Construct the URL for the FastAPI backend
+        fastapi_url = f'{FASTAPI_BACKEND_HOST}/total_waste_all_years/{comune}'
+        response = requests.get(fastapi_url)
+
+        if response.status_code == 200:
+            data = response.json()
+            total_waste_data = data.get('total_waste_data', {})
+        else:
+            error_message = "Error fetching data from backend."
+
+    return render_template('internal.html', form=form, total_waste_data=total_waste_data, error_message=error_message)

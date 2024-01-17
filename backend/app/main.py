@@ -65,3 +65,19 @@ def get_total_waste(comune: str, year: int):
     
     # Return the waste data in a dictionary format
     return {"comune": comune, "year": year, "total_waste": waste}
+
+# Function 2
+@app.get('/total_waste_all_years/{comune}')
+def get_total_waste_all_years(comune: str):
+    """
+    Endpoint to retrieve total waste for all years for a given comune.
+
+    Args:
+        comune (str): Name of the Comune
+
+    Returns:
+        dict: Total waste in Kg for all years or a message if not found
+    """
+    csv_file_path = 'app/filedati.csv'
+    waste_data = total_waste_all_years(comune, csv_file_path)
+    return {"comune": comune, "total_waste_data": waste_data}

@@ -35,3 +35,21 @@
 
 
 {% endblock %}
+
+        <!-- Table to display total waste data -->
+        {% if total_waste_data %}
+            <table>
+                <tr>
+                    <th>Year</th>
+                    <th>Total Waste (Kg)</th>
+                </tr>
+                {% for year, waste in total_waste_data.items() %}
+                    <tr>
+                        <td>{{ year }}</td>
+                        <td>{{ waste }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% elif error_message %}
+            <p class="text-danger">{{ error_message }}</p>
+        {% endif %}
