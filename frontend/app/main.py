@@ -110,3 +110,32 @@ def total_waste_all_years_query():
             error_message = "Error fetching data from backend."
 
     return render_template('internal.html', form=form, total_waste_data=total_waste_data, error_message=error_message)
+
+#function 3
+# Form class for the waste data request
+
+@app.route('/find_municipalities_by_waste', methods=['GET', 'POST'])
+def find_municipalities_by_waste():
+    form = MunicipalitiesQueryForm()
+    result = None
+    error_message = None
+
+    if form.validate_on_submit():
+        year = form.year.data
+
+        # Construct the URL for the FastAPI backend
+        fastapi_url = f'{FASTAPI_BACKEND_HOST}/find_municipalities_by_waste/{year}'
+        response = requests.get(fastapi_url)
+
+        if response.status_code == 200:
+            data = response.json()
+            # Processing the data to display in the frontend
+            result = {
+                "Year": data["Year"],
+                "Highest Waste Per Capita": data["Highest Waste Per Capita"],
+                "Lowest Waste Per Capita": data["Lowest Waste Per Capita"]
+            }
+        else:
+            error_message = f"Error: Unable to fetch data for the year {year}"
+
+    return render_template('find_municipalities.html', form=form, result=result, error_message=error_message)
