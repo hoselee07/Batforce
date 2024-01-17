@@ -81,3 +81,23 @@ def get_total_waste_all_years(comune: str):
     csv_file_path = 'app/filedati.csv'
     waste_data = total_waste_all_years(comune, csv_file_path)
     return {"comune": comune, "total_waste_data": waste_data}
+
+#function 3
+@app.get('/find_municipalities_by_waste/{year}')
+def get_find_municipalities_by_waste(year: int):
+    """
+    Endpoint to retrieve the municipalities with the highest and lowest waste per capita for a given year.
+
+    Args:
+        year (int): Year of interest
+
+    Returns:
+        JSONResponse: Contains the municipalities with the highest and lowest waste per capita.
+    """
+    csv_file_path = 'app/filedati.csv'
+    highest_municipality, highest_waste, lowest_municipality, lowest_waste = find_municipalities_by_waste(csv_file_path, year)
+    return JSONResponse(content={
+        "Year": year, 
+        "Highest Waste Per Capita": {"Municipality": highest_municipality, "Waste (in kg)": highest_waste},
+        "Lowest Waste Per Capita": {"Municipality": lowest_municipality, "Waste (in kg)": lowest_waste}
+    })
