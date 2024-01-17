@@ -34,3 +34,22 @@ def total_waste(comune, year, data):
         return total_waste
     else:
         return "No data found for the specified Comune and Year."
+
+
+# function total_waste_all_years retrieves total waste data
+# for all years for a given "Comune"
+def total_waste_all_years(comune, data):
+    """
+    Retrieve total waste for all years for a given comune.
+
+    :param comune: Name of the Comune
+    :param file_path: Path to the CSV file
+    :return: Dictionary with years as keys and total waste in Kg as values
+    """
+    data = pd.read_csv('app/filedati.csv', delimiter=';')
+    filtered_data = data[data['Comune'] == comune]
+
+    if filtered_data.empty:
+        return "No data found for the specified Comune."
+
+    return filtered_data.set_index('Anno')['Rifiuto totale (in Kg)'].to_dict()
