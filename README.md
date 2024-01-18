@@ -1,5 +1,5 @@
-# swdevel-lab-hfarm
- Skeleton Project for the Lab of Software Project Development
+# Batforce Project
+ The Readme is the safe for: Skeleton Project for the Lab of Software Project Development
 
 # Flask and FastAPI Dockerized Project
 
@@ -52,15 +52,18 @@ Bidirectional communication is established between the Frontend (Flask) and Back
 
     ```bash
     git clone REPO_URL
-    cd swdevel-lab-hfarm
+    cd Batforce
     ```
 
 2. Build and run the Docker containers:
 
     ```bash
-    docker-compose up --build
+    docker-compose build --no-cache
     ```
-
+3. Docker compose up to allow attaching vs code
+   ```bash
+    docker-compose up
+    ```
     This will start both the frontend and backend containers.
     
 > **NOTE:** Uncomment the lines in the Dockerfiles that follow the section labeled `Command to run the application` and comment out the ones labeled `Command to keep the container running`. This will allow you to access the backend and frontend, as described in Point 3.
