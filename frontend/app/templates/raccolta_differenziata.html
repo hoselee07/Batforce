@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} Find Raccolta Differenziata {% endblock %}
+
+{% block content %}
+    <!-- Add a new section for Raccolta Differenziata Query -->
+    <h2>Raccolta Differenziata Query</h2>
+    <form method="POST" action="{{ url_for('raccolta_differenziata') }}">  <!-- Assuming the Flask route handling this is 'internal' -->
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.comune.label }}
+            {{ form.comune(class="form-control", placeholder="Enter Municipality Name (with first letter CAPS)") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+
+    <!-- Display the results for Raccolta Differenziata -->
+    <div class="mt-3">
+        {% if data and not data.error %}
+            <h3>Results for Municipality: {{ data["comune"] }}</h3>
+            <p>Percentage Change: {{ data["percentage_change"] }}%</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Raccolta Differenziata (in kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for year, amount in data["data"].items() %}
+                        <tr>
+                            <td>{{ year }}</td>
+                            <td>{{ amount }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% elif data and data.error %}
+            <div class="alert alert-danger">
+                {{ data.error }}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
