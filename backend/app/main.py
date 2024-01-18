@@ -6,15 +6,18 @@ as the backend for the project.
 """
 
 from fastapi import FastAPI
-from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
 
 
 from .mymodules.birthdays import total_waste
+from .mymodules.birthdays import total_waste_all_years
+from .mymodules.birthdays import find_municipalities_by_waste
+from .mymodules.birthdays import raccolta_differenziata_change
 
 app = FastAPI()
+
 
 df = pd.read_csv('app/filedati.csv')
 
@@ -28,45 +31,25 @@ def read_root():
     """
     return {"Hello": "World"}
 
-@app.get('/get-date')
-def get_date():
-    """
-    Endpoint to get the current date.
-
-    Returns:
-        dict: Current date in ISO format.
-    """
-    current_date = datetime.now().isoformat()
-    return JSONResponse(content={"date": current_date})
-
-# Function1 - total_waste (comune, year)
+# function 1 - total_waste (comune, year)
 @app.get('/total_waste/{comune}/{year}')
 def get_total_waste(comune: str, year: int):
     """
     Endpoint to retrieve total waste for a given comune and year.
 
-    This function receives the name of a Comune and a year, then returns the total
-    waste generated in that Comune for the specified year. The data is retrieved
-    from a CSV file.
-
     Args:
-        comune (str): Name of the Comune.
-        year (int): Year of interest.
+        comune (str): Name of the Comune
+        year (int): Year of interest
 
     Returns:
-        dict: Total waste in Kg or a message if not found.
+        dict: Total waste in Kg or a message if not found
     """
-
-    # Path to the CSV file containing waste data
+    # Assuming the CSV file path is fixed, you can hardcode or configure it here
     csv_file_path = 'app/filedati.csv'
-    
-    # Retrieve waste data for the given comune and year
     waste = total_waste(comune, year, csv_file_path)
-    
-    # Return the waste data in a dictionary format
     return {"comune": comune, "year": year, "total_waste": waste}
 
-# Function 2
+# function 2
 @app.get('/total_waste_all_years/{comune}')
 def get_total_waste_all_years(comune: str):
     """
@@ -101,3 +84,27 @@ def get_find_municipalities_by_waste(year: int):
         "Highest Waste Per Capita": {"Municipality": highest_municipality, "Waste (in kg)": highest_waste},
         "Lowest Waste Per Capita": {"Municipality": lowest_municipality, "Waste (in kg)": lowest_waste}
     })
+
+#function 4
+@app.get('/raccolta_differenziata/{comune}')
+def get_raccolta_differenziata_change(comune: str):
+    """
+    Endpoint to get the change in 'raccolta differenziata' over the years for a given comune.
+    """
+    file_path = 'app/filedati.csv' 
+    data = raccolta_differenziata_change(comune, file_path)
+    return JSONResponse(content=data)
+
+
+
+
+@app.get('/get-date')
+def get_date():
+    """
+    Endpoint to get the current date.
+
+    Returns:
+        dict: Current date in ISO format.
+    """
+    current_date = datetime.now().isoformat()
+    return JSONResponse(content={"date": current_date})
