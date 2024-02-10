@@ -22,7 +22,7 @@ We developed and implemented four principal functions:
 3. In the third one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
 4. In the last function we get the change in 'raccolta differenziata' over the years for a given comune.
 
-Dataset link: https://dati.veneto.it/opendata/dato_sui_rifiuti_per_presentazione_
+Dataset link: https://dati.veneto.it/opendata/dato_sui_rifiuti_per_presentazione_ 
 
 # Flask and FastAPI Dockerized Project
 
