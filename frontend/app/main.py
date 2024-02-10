@@ -10,7 +10,7 @@ from wtforms import StringField, SubmitField, IntegerField
 
 # Flask application configuration
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'  # Replace 'your_secret_key' with a real secret key
+app.config['SECRET_KEY'] = 'your_secret_key'
 
 # Backend service configuration
 FASTAPI_BACKEND_HOST = 'http://backend'  # URL of the FastAPI backend
