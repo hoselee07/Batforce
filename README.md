@@ -1,5 +1,4 @@
 # Batforce Project
-Dataset link: https://dati.veneto.it/opendata/dato_sui_rifiuti_per_presentazione_
 
 Our project aims to analyze detailed information about waste management across all municipalities ('comuni') in Italy over a range of years from 1997 to 2011.
 The dataset 'filedati.csv' is divided in various columns. Each column in the dataset represents:
@@ -22,6 +21,8 @@ We developed and implemented four principal functions:
 2. In the second function we obtain the total waste for all years for a given comune. This functions is directly connected to the first one.
 3. In the third one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
 4. In the last function we get the change in 'raccolta differenziata' over the years for a given comune.
+
+# Dataset link: https://dati.veneto.it/opendata/dato_sui_rifiuti_per_presentazione_
 
 # Flask and FastAPI Dockerized Project
 
