@@ -1,4 +1,6 @@
 # Batforce Project
+Dataset link: https://dati.veneto.it/opendata/dato_sui_rifiuti_per_presentazione_
+
 Our project aims to analyze detailed information about waste management across all municipalities ('comuni') in Italy over a range of years from 1997 to 2011.
 The dataset 'filedati.csv' is divided in various columns. Each column in the dataset represents:
 - Codice Istat comune (numerico): The numerical ISTAT code of the municipality.
