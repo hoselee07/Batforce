@@ -1,5 +1,25 @@
 # Batforce Project
- The Readme is the safe for: Skeleton Project for the Lab of Software Project Development
+Our project aims to analyze detailed information about waste management across all municipalities ('comuni') in Italy over a range of years from 1997 to 2011.
+The dataset 'filedati.csv' is divided in various columns. Each column in the dataset represents:
+- Codice Istat comune (numerico): The numerical ISTAT code of the municipality.
+- Rifiuto residuo (in Kg): The residual waste in kilograms.
+- Comune: The name of the municipality.
+- Rifiuto totale (in Kg): The total amount of waste in kilograms. This includes both residual and separated (recycled) waste.
+- Rifiuto totale pro capite (in Kg): The total amount of waste per capita in kilograms. This indicates the average amount of waste produced 
+  by each person in the municipality.
+- Rifiuto totale differenziato pro capite (in Kg): The total amount of differentiated waste per capita in kilograms. This shows the average 
+  amount of waste per person that was recycled or specially treated.
+- Rifiuto totale residuo pro capite (in Kg): The total amount of residual waste per capita in kilograms, highlighting the average amount of 
+  waste per person that was not recycled or specially treated.
+- Raccolta differenziata (in Kg): The total amount of waste collected for recycling or special treatment in kilograms.
+- Anno: The year the data was collected. 
+- Popolazione a fine anno: The population of the municipality at the end of the year. This is used to calculate per capita statistics
+
+We developed and implemented four principal functions:
+1. In the first fuction we collect the total waste for a given comune and year. 
+2. In the second function we obtain the total waste for all years for a given comune. This functions is directly connected to the first one.
+3. In the function one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
+4. In the last function we get the change in 'raccolta differenziata' over the years for a given comune.
 
 # Flask and FastAPI Dockerized Project
 
