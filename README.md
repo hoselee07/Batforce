@@ -1,7 +1,8 @@
 # Batforce Project
 
-Our project aims to analyze detailed information about waste management across all municipalities ('comuni') in Italy over a range of years from 1997 to 2011.
-The dataset 'filedati.csv' is divided in various columns. Each column in the dataset represents:
+Our project aims to analyze detailed information about waste management across all municipalities ('comuni') in Veneto (IT) over a range of years from 1997 to 2011.
+
+The dataset we have used, 'filedati.csv', is divided in various columns:
 - Codice Istat comune (numerico): The numerical ISTAT code of the municipality.
 - Rifiuto residuo (in Kg): The residual waste in kilograms.
 - Comune: The name of the municipality.
@@ -20,7 +21,7 @@ We developed and implemented four principal functions:
 1. In the first fuction we collect the total waste for a given comune and year. 
 2. In the second function we obtain the total waste for all years for a given comune. This functions is directly connected to the first one.
 3. In the third one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
-4. In the last function we get the change in 'raccolta differenziata' over the years for a given comune.
+4. In the last function we get the % change in 'raccolta differenziata' over the years for a given comune.
 
 Dataset link: https://dati.veneto.it//opendata/dato_sui_rifiuti_per_presentazione_?t=Tabella
 
