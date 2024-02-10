@@ -18,7 +18,7 @@ The dataset 'filedati.csv' is divided in various columns. Each column in the dat
 We developed and implemented four principal functions:
 1. In the first fuction we collect the total waste for a given comune and year. 
 2. In the second function we obtain the total waste for all years for a given comune. This functions is directly connected to the first one.
-3. In the function one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
+3. In the third one we retrieve the municipalities with the highest and lowest waste per capita for a given year.
 4. In the last function we get the change in 'raccolta differenziata' over the years for a given comune.
 
 # Flask and FastAPI Dockerized Project
