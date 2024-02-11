@@ -93,6 +93,12 @@ def get_find_municipalities_by_waste(year: int):
 def get_raccolta_differenziata_change(comune: str):
     """
     Endpoint to get the change in 'raccolta differenziata' over the years for a given comune.
+
+    Args:
+        comune (str): Name of the Comune
+
+    Returns:
+        JSONResponse: The % change in 'raccolta differenziata' over the years for a given comune.
     """
     file_path = 'app/filedati.csv'
     data = raccolta_differenziata_change(comune, file_path)
