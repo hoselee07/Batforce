@@ -57,6 +57,9 @@ def total_waste_all_years(comune, data):
 
 
 # function 3
+#find_municipalities_by_waste function to find the highest al lowest waste per capita for a given year
+#input year to which then finds the data
+
 def find_municipalities_by_waste(data, year):
     """
     Finds the municipalities with the highest and lowest waste per capita for a given year.
@@ -91,6 +94,8 @@ def find_municipalities_by_waste(data, year):
         lowest_waste['Comune'].iloc[0], lowest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0]
     )
 
+#function 4
+#finds the percentage of raccolta differenziata change over the years where possible
 
 def raccolta_differenziata_change(comune, file_path):
     """
