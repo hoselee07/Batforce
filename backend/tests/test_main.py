@@ -4,12 +4,11 @@ import pytest
 from fastapi.testclient import TestClient
 from datetime import datetime
 import pandas as pd
+# Import the FastAPI application for testing
+from app.main import app
 
 # Add the project root to the sys.path to allow imports from the parent directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-# Import the FastAPI application for testing
-from app.main import app
 
 # Initialize the test client with the FastAPI app
 client = TestClient(app)
