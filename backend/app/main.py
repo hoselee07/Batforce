@@ -5,11 +5,10 @@ This module defines a FastAPI application that serves
 as the backend for the project.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from datetime import datetime
 import pandas as pd
-
 
 from .mymodules.birthdays import total_waste
 from .mymodules.birthdays import total_waste_all_years
@@ -18,8 +17,8 @@ from .mymodules.birthdays import raccolta_differenziata_change
 
 app = FastAPI()
 
-
 df = pd.read_csv('app/filedati.csv')
+
 
 @app.get('/')
 def read_root():
@@ -30,6 +29,7 @@ def read_root():
         dict: A simple greeting.
     """
     return {"Hello": "World"}
+
 
 # function 1 - total_waste (comune, year)
 @app.get('/total_waste/{comune}/{year}')
@@ -44,10 +44,10 @@ def get_total_waste(comune: str, year: int):
     Returns:
         dict: Total waste in Kg or a message if not found
     """
-    # Assuming the CSV file path is fixed, you can hardcode or configure it here
     csv_file_path = 'app/filedati.csv'
     waste = total_waste(comune, year, csv_file_path)
     return {"comune": comune, "year": year, "total_waste": waste}
+
 
 # function 2
 @app.get('/total_waste_all_years/{comune}')
@@ -65,7 +65,8 @@ def get_total_waste_all_years(comune: str):
     waste_data = total_waste_all_years(comune, csv_file_path)
     return {"comune": comune, "total_waste_data": waste_data}
 
-#function 3
+
+# function 3
 @app.get('/find_municipalities_by_waste/{year}')
 def get_find_municipalities_by_waste(year: int):
     """
@@ -78,24 +79,24 @@ def get_find_municipalities_by_waste(year: int):
         JSONResponse: Contains the municipalities with the highest and lowest waste per capita.
     """
     csv_file_path = 'app/filedati.csv'
-    highest_municipality, highest_waste, lowest_municipality, lowest_waste = find_municipalities_by_waste(csv_file_path, year)
+    highest_municipality, highest_waste, lowest_municipality, lowest_waste = find_municipalities_by_waste(
+        csv_file_path, year)
     return JSONResponse(content={
-        "Year": year, 
+        "Year": year,
         "Highest Waste Per Capita": {"Municipality": highest_municipality, "Waste (in kg)": highest_waste},
         "Lowest Waste Per Capita": {"Municipality": lowest_municipality, "Waste (in kg)": lowest_waste}
     })
 
-#function 4
+
+# function 4
 @app.get('/raccolta_differenziata/{comune}')
 def get_raccolta_differenziata_change(comune: str):
     """
     Endpoint to get the change in 'raccolta differenziata' over the years for a given comune.
     """
-    file_path = 'app/filedati.csv' 
+    file_path = 'app/filedati.csv'
     data = raccolta_differenziata_change(comune, file_path)
     return JSONResponse(content=data)
-
-
 
 
 @app.get('/get-date')
@@ -108,3 +109,4 @@ def get_date():
     """
     current_date = datetime.now().isoformat()
     return JSONResponse(content={"date": current_date})
+
