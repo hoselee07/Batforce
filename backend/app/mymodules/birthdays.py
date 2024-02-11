@@ -1,9 +1,5 @@
 import pandas as pd
 
-# This function takes three parameters:
-# the name of a "Comune", a year, and the path to the CSV file.
-# It searches the CSV file for the given "Comune" and year and
-# returns the corresponding “Rifiuto totale (in Kg)” value.
 
 def total_waste(comune, year, data):
     """
@@ -14,30 +10,16 @@ def total_waste(comune, year, data):
     :param file_path: Path to the CSV file
     :return: Total waste in Kg or a message if not found
     """
-    
-    # Load the CSV file with the correct delimiter
     data = pd.read_csv('app/filedati.csv', delimiter=';')
 
-
-    # Filter data for the given comune and year
     filtered_data = data[(data['Comune'] == comune) & (data['Anno'] == year)]
 
-    # Check if there is an entry for the given comune and year
     if not filtered_data.empty:
-        # Extract the total waste value
         total_waste = filtered_data['Rifiuto totale (in Kg)'].iloc[0]
         return total_waste
     else:
         return "No data found for the specified Comune and Year."
 
-# Example usage of the function:
-# total_waste = get_total_waste_by_comune_year("Affi", 1997, "/app/app/filedati.csv")
-# print(total_waste)
-    
-
-
-# function total_waste_all_years retrieves total waste data
-# for all years for a given "Comune"
 
 def total_waste_all_years(comune, data):
     """
@@ -56,10 +38,6 @@ def total_waste_all_years(comune, data):
     return filtered_data.set_index('Anno')['Rifiuto totale (in Kg)'].to_dict()
 
 
-# function 3
-#find_municipalities_by_waste function to find the highest al lowest waste per capita for a given year
-#input year to which then finds the data
-
 def find_municipalities_by_waste(data, year):
     """
     Finds the municipalities with the highest and lowest waste per capita for a given year.
@@ -72,10 +50,8 @@ def find_municipalities_by_waste(data, year):
     - A tuple containing the municipalities with the highest and lowest waste per capita.
     """
     data = pd.read_csv('app/filedati.csv', delimiter=';')
-    # Filter the data for the given year
     year_data = data[data['Anno'] == year]
 
-    # Prepare 'Rifiuto totale pro capite (in Kg)' for conversion to float
     year_data['Rifiuto totale pro capite (in Kg)'] = (
         year_data['Rifiuto totale pro capite (in Kg)']
         .str.replace('.', '')
@@ -83,19 +59,17 @@ def find_municipalities_by_waste(data, year):
         .astype(float)
     )
 
-    # Find the municipality with the highest waste per capita
-    highest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] == year_data['Rifiuto totale pro capite (in Kg)'].max()]
+    highest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] ==
+                               year_data['Rifiuto totale pro capite (in Kg)'].max()]
 
-    # Find the municipality with the lowest waste per capita
-    lowest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] == year_data['Rifiuto totale pro capite (in Kg)'].min()]
+    lowest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] ==
+                              year_data['Rifiuto totale pro capite (in Kg)'].min()]
 
     return (
         highest_waste['Comune'].iloc[0], highest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0],
         lowest_waste['Comune'].iloc[0], lowest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0]
     )
 
-#function 4
-#finds the percentage of raccolta differenziata change over the years where possible
 
 def raccolta_differenziata_change(comune, file_path):
     """
@@ -110,15 +84,12 @@ def raccolta_differenziata_change(comune, file_path):
     comune_data = df[df['Comune'].str.strip() == comune.strip()]
     raccolta_data = comune_data[['Anno', 'Raccolta differenziata (in Kg)']].dropna(subset=['Raccolta differenziata (in Kg)'])
 
-    # Check if data is available for the comune
     if raccolta_data.empty:
         return {'error': 'No data available for the specified comune'}
     
-    # Ensure there are at least two data points for percentage calculation
     if len(raccolta_data) < 2:
         return {'error': 'Insufficient data for percentage change calculation'}
 
-    # Calculate percentage change
     first_year_amount = raccolta_data.iloc[0]['Raccolta differenziata (in Kg)']
     last_year_amount = raccolta_data.iloc[-1]['Raccolta differenziata (in Kg)']
     percentage_change = ((last_year_amount - first_year_amount) / first_year_amount) * 100
