@@ -58,12 +58,11 @@ def find_municipalities_by_waste(data, year):
         .str.replace(',', '.')
         .astype(float)
     )
-
     highest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] ==
-                               year_data['Rifiuto totale pro capite (in Kg)'].max()]
+                              year_data['Rifiuto totale pro capite (in Kg)'].max()]
 
     lowest_waste = year_data[year_data['Rifiuto totale pro capite (in Kg)'] ==
-                              year_data['Rifiuto totale pro capite (in Kg)'].min()]
+                             year_data['Rifiuto totale pro capite (in Kg)'].min()]
 
     return (
         highest_waste['Comune'].iloc[0], highest_waste['Rifiuto totale pro capite (in Kg)'].iloc[0],
